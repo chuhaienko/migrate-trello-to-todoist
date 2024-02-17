@@ -1,0 +1,23 @@
+{
+  "name": "migrate-trello-to-todoist",
+  "version": "1.0.0",
+  "description": "Script migrates data from Trello to Todoist",
+  "main": "dist/migrate.js",
+  "scripts": {
+    "start": "node -r ts-node/register -r dotenv/config src/migrate.ts",
+    "test": "echo no tests"
+  },
+  "author": "Yurii Chuhaienko",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.5",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/node": "^20.11.16",
+    "dotenv": "^16.4.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

@@ -88,8 +88,14 @@ async function main () {
 				console.log(Date.now(), `Trello attachments: ${trelloAttachments.length}`);
 
 				for (const trelloAttachment of trelloAttachments) {
-					const fileStream = await trello.getAttachmentFileStream(trelloAttachment.url);
-					await todoist.uploadAttachment(todoistTask.id, trelloAttachment.fileName, trelloAttachment.mimeType, fileStream);
+					if (trelloAttachment.url.includes("https://trello.com")) {
+						// The attachment is probably a file uploaded to Trello card. Download the file and upload it to Todoist.
+						const fileStream = await trello.getAttachmentFileStream(trelloAttachment.url);
+						await todoist.uploadAttachment(todoistTask.id, trelloAttachment.fileName, trelloAttachment.mimeType, fileStream);
+					} else { 
+						// The attachment is probably a URL to a website. Don't download the file, just add the URL as a comment.
+						await todoist.createComment(trelloAttachment.url, todoistTask.id);
+					}					
 				}
 			}
 
